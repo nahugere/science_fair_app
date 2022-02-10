@@ -27,53 +27,62 @@ class TopShadow extends StatelessWidget {
   }
 }
 
-class SearchCard extends StatelessWidget {
+class SearchCard extends StatefulWidget {
   final text;
   final description;
   final imageLink;
-  const SearchCard({ Key key, this.description, this.imageLink, this.text }) : super(key: key);
+  final onTap;
+  const SearchCard({ Key key, this.description, this.imageLink, this.text, this.onTap }) : super(key: key);
 
   @override
+  _SearchCardState createState() => _SearchCardState();
+}
+
+class _SearchCardState extends State<SearchCard> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(top: 13),
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width*0.3,
-                margin: EdgeInsets.only(left: 16.5, right: 9, bottom: 13),
-                height: 114,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(imageLink),
-                    fit: BoxFit.cover
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.only(top: 13),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width*0.3,
+                  margin: EdgeInsets.only(left: 16.5, right: 9, bottom: 13),
+                  height: 114,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(widget.imageLink),
+                      fit: BoxFit.cover
+                    ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(9)
                   ),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(9)
                 ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(text, style: Theme.of(context).textTheme.headline6,),
-                    Padding(padding: EdgeInsets.only(top: 4)),
-                    Text(description, style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.grey[350]), maxLines: 5,)
-                  ],
-                )
-              ),
-            ],
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 1,
-            color: Colors.grey[700],
-          ),
-        ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(widget.text, style: Theme.of(context).textTheme.headline6,),
+                      Padding(padding: EdgeInsets.only(top: 4)),
+                      Text(widget.description, style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.grey[350]), maxLines: 5,)
+                    ],
+                  )
+                ),
+              ],
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 1,
+              color: Colors.grey[700],
+            ),
+          ],
+        ),
       ),
     );
   }

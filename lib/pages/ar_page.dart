@@ -32,7 +32,7 @@ class _HelloWorldState extends State<HelloWorld> {
     arCoreController = controller;
     // arCoreController.;
 
-    // _addSphere(arCoreController);
+    _addSphere(arCoreController);
     // _addCylindre(arCoreController);
     // _addCube(arCoreController);
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:science_fair_project_app/main_state.dart';
+import 'package:science_fair_project_app/services/model_service.dart';
 import 'package:science_fair_project_app/widgets/components.dart';
 import 'package:science_fair_project_app/services/web_service.dart';
 import 'package:science_fair_project_app/constants.dart';
@@ -56,6 +58,11 @@ class _SearchPageState extends State<SearchPage> {
         itemCount: data["body"].length,
         itemBuilder: (context, index) {
           return SearchCard(
+            onTap: () {
+              ModelService newModel = ModelService(name: data["body"][index]["name"], description: data["body"][index]["description"], model_link: data["body"][index]["file"], more_info_link: data["body"][index]["more_info_link"], more_info_text: data["body"][index]["more_info_text"]);
+              MainState.of(context).changeModel(newModel);
+              Navigator.of(context).pop();
+            },
             imageLink: "${kHost}${data["body"][index]["image"]}",
             text: data["body"][index]["name"],
             description: data["body"][index]["description"],
